@@ -102,6 +102,8 @@
 
                 var deliveryman = $(this).data('key');
                 var empresa = $("#cadEmpresa").val();
+                var bloco = $("#cadBloco").val();
+                var apartamento = $("#cadAp").val();
 
                 $.ajax({
                     url: "http://localhost:8000/registrar",
@@ -109,7 +111,9 @@
                     dataType: 'json',
                     data: {
                         deliveryman:deliveryman, 
-                        empresa:empresa
+                        empresa:empresa,
+                        bloco:bloco,
+                        apartamento:apartamento
                     },  
                     type: 'POST',
                     success: function(data) {
@@ -130,6 +134,8 @@
                 var cpf = $("#cadCpf").val();
                 var name = $("#cadNome").val();
                 var empresa = $("#cadEmpresa").val(); 
+                var bloco = $("#cadBloco").val();
+                var apartamento = $("#cadAp").val();
 
                 $.ajax({
                     url: "http://localhost:8000/deliveryman",
@@ -138,7 +144,9 @@
                     data: {
                         name:name,
                         cpf:cpf,
-                        empresa:empresa
+                        empresa:empresa,
+                        bloco:bloco,
+                        apartamento:apartamento
                     },  
                     type: 'POST',
                     success: function(data) {
@@ -173,14 +181,26 @@
                                 var html  = "<div class='card' style='width: 100%; min-height:200px; margin-top: 20px;'>";
                                     html += "<div class='card-body'>";
                                     html += "<p class='card-title' style='color:green'>Entregador Encontrado!</p>";
+                                    
                                     html += "<p class='card-text' style='margin-top:20px; padding:0px'>";
                                     html += "<span style='font-weight: bold;'>CPF: </span>" + data.cpf ;
                                     html += "</p>";
+                                    
                                     html += "<p class='card-text' style='margin-top:-15px; padding:0px'>";
                                     html += "<span style='font-weight: bold;'>Nome: </span>" + data.name;
                                     html += "</p>";
+                                    
                                     html += "<p class='card-text' style='margin-top:0px; padding:0px'><span style='font-weight: bold;'>Nome da empresa</span></p>";
                                     html += "<input type='text' style='margin-top:-15px; margin-bottom:15px; padding:10px' id='cadEmpresa' class='form-control'>";
+                                    
+                                    html += "<p class='card-text' style='margin-top:-10px; padding:0px'><span style='font-weight: bold;'>Bloco</span></p>";
+                                    html += "<select class='form-control form-select' id='cadBloco' style='margin-top:-15px;'>";
+                                    html += "<option value='1' selected>1</option><option value='2'>2</option>";
+                                    html += "</select>"
+
+                                    html += "<p class='card-text' style='margin-top:10px; padding:0px'><span style='font-weight: bold;'>Apartamento</span></p>";
+                                    html += "<input type='text' style='margin-top:-15px; margin-bottom:15px; padding:10px' id='cadAp' class='form-control'>";
+                                                                                                            
                                     html += "<a href='#' class='card-link registrar' data-key='"+data.id+"'>Registrar Entrada</a>"; 
                                     html += "</div>";
                                     html += "</div>";
@@ -210,6 +230,14 @@
                                 html += "   <span style='font-weight: bold;'>Nome da empresa: </span>";
                                 html += "   <input style='padding:10px' type='text' id='cadEmpresa' class='form-control'>";
                                 html += "</p>"; 
+
+                                html += "<p class='card-text' style='margin-top:-10px; padding:0px'><span style='font-weight: bold;'>Bloco</span></p>";
+                                html += "<select class='form-control form-select' id='cadBloco' style='margin-top:-15px;'>";
+                                html += "<option value='1' selected>1</option><option value='2'>2</option>";
+                                html += "</select>"
+
+                                html += "<p class='card-text' style='margin-top:10px; padding:0px'><span style='font-weight: bold;'>Apartamento</span></p>";
+                                html += "<input type='text' style='margin-top:-15px; margin-bottom:15px; padding:10px' id='cadAp' class='form-control'>";                
 
                                 html += "<a href='javascript:;' class='card-link' id='cadastrar'>Cadastrar e Registrar Entrada</a>"; 
                                 html += "</div>";

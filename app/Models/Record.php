@@ -17,6 +17,8 @@ class Record extends Model
     protected $fillable = [
         "deliveryman_id",
         "empresa",
+        "bloco",
+        "apartamento",
         "status"
     ];
 

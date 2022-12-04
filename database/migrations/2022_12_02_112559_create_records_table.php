@@ -22,6 +22,8 @@ class CreateRecordsTable extends Migration
                     ->onUpdate('cascade')
                     ->onDelete('restrict');
             $table->string('empresa')->nullable();      
+            $table->string('bloco');
+            $table->string('apartamento');
             $table->char('status', 1);
             $table->dateTime('saida')->nullable();
             $table->timestamps();

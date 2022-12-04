@@ -37,6 +37,8 @@ class DeliveryController extends Controller
         Record::create([
             'deliveryman_id' => $delivery->id,
             'empresa' => $request->empresa,
+            'bloco' => $request->bloco,
+            'apartamento' => $request->apartamento,
             'status' => 1
         ]);         
 
@@ -65,6 +67,8 @@ class DeliveryController extends Controller
         Record::create([
             'deliveryman_id' => $request->deliveryman,
             'empresa' => $request->empresa,
+            'bloco' => $request->bloco,
+            'apartamento' => $request->apartamento,
             'status' => 1
         ]); 
 
