@@ -30,7 +30,7 @@
     <script> 
         $(document).ready(function() {
 
-            setInterval(function(){
+            setInterval(function() {
                     /**
                      * REMOVER DA LISTA
                      */  
@@ -43,7 +43,6 @@
                         },  
                         type: 'POST',
                         success: function(data) {
-                            console.log(data.dados);
                             $(data.dados).each(function(index, data) {
                                 if(data != undefined) { 
                                     var rowBanco = data.id;
@@ -58,7 +57,7 @@
                     });
                     console.log('tentativa...');
                      
-                }, 5000); //600000
+                }, 5000); 
             
             /** 
              * MASCARAS
@@ -131,7 +130,7 @@
             $("body").on('click', ".remover", function() {
 
                 var deliveryman = $(this).data('key');
-                 console.log(deliveryman);
+                
                 $.ajax({
                     url: "http://localhost:8000/remover",
                     crossDomain: true, 
@@ -221,97 +220,86 @@
              */
             $('#buscar').click(function(){
                 var cpf = $("#cpf").val(); 
-                $("#dados").val('');
+                $("#dados").val(''); 
+                
+                $.ajax({
+                    url: "http://localhost:8000/busca-cpf/" + cpf,
+                    crossDomain: true, 
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function(data) {
 
-                // if(cpf.length == 14 || cpf.length == 12) { 
-                    $.ajax({
-                        url: "http://localhost:8000/busca-cpf/" + cpf,
-                        crossDomain: true, 
-                        dataType: 'json',
-                        type: 'GET',
-                        success: function(data) {
-
-                            var cpf = data.cpf;  
-                            if (cpf != "") {
-                                
-                                var html  = "<div class='card' style='width: 100%; min-height:200px; margin-top: 20px;'>";
-                                    html += "<div class='card-body'>";
-                                    html += "<p class='card-title' style='color:green'>Entregador Encontrado!</p>";
-                                    
-                                    html += "<p class='card-text' style='margin-top:20px; padding:0px'>";
-                                    html += "<span style='font-weight: bold;'>CPF|RG: </span>" + data.cpf ;
-                                    html += "</p>";
-                                    
-                                    html += "<p class='card-text' style='margin-top:-15px; padding:0px'>";
-                                    html += "<span style='font-weight: bold;'>Nome: </span>" + data.name;
-                                    html += "</p>";
-                                    
-                                    html += "<p class='card-text' style='margin-top:0px; padding:0px'><span style='font-weight: bold;'>Nome da empresa</span></p>";
-                                    html += "<input type='text' style='margin-top:-15px; margin-bottom:15px; padding:10px' id='cadEmpresa' class='form-control'>";
-                                    
-                                    html += "<p class='card-text' style='margin-top:-10px; padding:0px'><span style='font-weight: bold;'>Bloco</span></p>";
-                                    html += "<select class='form-control form-select' id='cadBloco' style='margin-top:-15px;'>";
-                                    html += "<option value='1' selected>1</option><option value='2'>2</option>";
-                                    html += "</select>"
-
-                                    html += "<p class='card-text' style='margin-top:10px; padding:0px'><span style='font-weight: bold;'>Apartamento</span></p>";
-                                    html += "<input type='text' style='margin-top:-15px; margin-bottom:15px; padding:10px' id='cadAp' class='form-control'>";
-                                                                                                            
-                                    html += "<a href='#' class='card-link registrar' data-key='"+data.id+"'>Registrar Entrada</a>"; 
-                                    html += "</div>";
-                                    html += "</div>";
-                            }  
-
-                            $("#dados").html(html);
-                        },
-                        error: function (data) {
-                            $("#cpf").val('');
-
-                            var html  = "<div class='card' style='width: 100%; margin-top: 20px;'>";
+                        var cpf = data.cpf;  
+                        if (cpf != "") {
+                            
+                            var html  = "<div class='card' style='width: 100%; min-height:200px; margin-top: 20px;'>";
                                 html += "<div class='card-body'>";
-                                html += "<h5 class='card-title' style='color:red'>Nenhum Entregador Encontrado!</h5>";
-                                html += "<h6 class='card-subtitle mb-2 text-muted'>Preencha o formulário para cadastrar</h6>";
+                                html += "<p class='card-title' style='color:green'>Entregador Encontrado!</p>";
                                 
                                 html += "<p class='card-text' style='margin-top:20px; padding:0px'>";
-                                html += "   <span style='font-weight: bold;'>Documento: </span>";
-                                html += "   <input style='padding:10px' type='text' id='cadCpf' value='"+cpf+"' class='form-control'>";
+                                html += "<span style='font-weight: bold;'>CPF|RG: </span>" + data.cpf ;
                                 html += "</p>";
-
-                                html += "<p class='card-text' style='margin-top:-10px; padding:0px'>";
-                                html += "   <span style='font-weight: bold;'>Nome: </span>";
-                                html += "   <input style='padding:10px' type='text' id='cadNome' class='form-control'>";
-                                html += "</p>"; 
-
-                                html += "<p class='card-text' style='margin-top:-10px; padding:0px'>";
-                                html += "   <span style='font-weight: bold;'>Nome da empresa: </span>";
-                                html += "   <input style='padding:10px' type='text' id='cadEmpresa' class='form-control'>";
-                                html += "</p>"; 
-
+                                
+                                html += "<p class='card-text' style='margin-top:-15px; padding:0px'>";
+                                html += "<span style='font-weight: bold;'>Nome: </span>" + data.name;
+                                html += "</p>";
+                                
+                                html += "<p class='card-text' style='margin-top:0px; padding:0px'><span style='font-weight: bold;'>Nome da empresa</span></p>";
+                                html += "<input type='text' style='margin-top:-15px; margin-bottom:15px; padding:10px' id='cadEmpresa' class='form-control'>";
+                                
                                 html += "<p class='card-text' style='margin-top:-10px; padding:0px'><span style='font-weight: bold;'>Bloco</span></p>";
                                 html += "<select class='form-control form-select' id='cadBloco' style='margin-top:-15px;'>";
                                 html += "<option value='1' selected>1</option><option value='2'>2</option>";
                                 html += "</select>"
 
                                 html += "<p class='card-text' style='margin-top:10px; padding:0px'><span style='font-weight: bold;'>Apartamento</span></p>";
-                                html += "<input type='text' style='margin-top:-15px; margin-bottom:15px; padding:10px' id='cadAp' class='form-control'>";                
-
-                                html += "<a href='javascript:;' class='card-link' id='cadastrar'>Cadastrar e Registrar Entrada</a>"; 
+                                html += "<input type='text' style='margin-top:-15px; margin-bottom:15px; padding:10px' id='cadAp' class='form-control'>";
+                                                                                                        
+                                html += "<a href='#' class='card-link registrar' data-key='"+data.id+"'>Registrar Entrada</a>"; 
                                 html += "</div>";
                                 html += "</div>";
+                        }  
 
-                            $("#dados").html(html);
-                        }
-                    });
-                // } else {
-                    
-                //     var html  = "<div class='card' style='width: 100%; margin-top: 20px; background-color:#ff000c26'>";
-                //         html += "<div class='card-body' style='text-align: center; '>";
-                //         html += "<h5 class='card-title' style='color:red; margin-top:10px'>Documento Inválido</h5>"; 
-                //         html += "</div>";
-                //         html += "</div>";
+                        $("#dados").html(html);
+                    },
+                    error: function (data) {
+                        $("#cpf").val('');
 
-                //     $("#dados").html(html);
-                // }
+                        var html  = "<div class='card' style='width: 100%; margin-top: 20px;'>";
+                            html += "<div class='card-body'>";
+                            html += "<h5 class='card-title' style='color:red'>Nenhum Entregador Encontrado!</h5>";
+                            html += "<h6 class='card-subtitle mb-2 text-muted'>Preencha o formulário para cadastrar</h6>";
+                            
+                            html += "<p class='card-text' style='margin-top:20px; padding:0px'>";
+                            html += "   <span style='font-weight: bold;'>Documento: </span>";
+                            html += "   <input style='padding:10px' type='text' id='cadCpf' value='"+cpf+"' class='form-control'>";
+                            html += "</p>";
+
+                            html += "<p class='card-text' style='margin-top:-10px; padding:0px'>";
+                            html += "   <span style='font-weight: bold;'>Nome: </span>";
+                            html += "   <input style='padding:10px' type='text' id='cadNome' class='form-control'>";
+                            html += "</p>"; 
+
+                            html += "<p class='card-text' style='margin-top:-10px; padding:0px'>";
+                            html += "   <span style='font-weight: bold;'>Nome da empresa: </span>";
+                            html += "   <input style='padding:10px' type='text' id='cadEmpresa' class='form-control'>";
+                            html += "</p>"; 
+
+                            html += "<p class='card-text' style='margin-top:-10px; padding:0px'><span style='font-weight: bold;'>Bloco</span></p>";
+                            html += "<select class='form-control form-select' id='cadBloco' style='margin-top:-15px;'>";
+                            html += "<option value='1' selected>1</option><option value='2'>2</option>";
+                            html += "</select>"
+
+                            html += "<p class='card-text' style='margin-top:10px; padding:0px'><span style='font-weight: bold;'>Apartamento</span></p>";
+                            html += "<input type='text' style='margin-top:-15px; margin-bottom:15px; padding:10px' id='cadAp' class='form-control'>";                
+
+                            html += "<a href='javascript:;' class='card-link' id='cadastrar'>Cadastrar e Registrar Entrada</a>"; 
+                            html += "</div>";
+                            html += "</div>";
+
+                        $("#dados").html(html);
+                    }
+                }); 
             }); 
         });
     </script>    
