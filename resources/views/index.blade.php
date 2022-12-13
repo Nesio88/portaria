@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{URL::asset('css/bootstrap-4.3.1.css')}}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -23,10 +23,34 @@
     </style>
 
     <title>Portaria</title>
-    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{URL::asset('js/jquery-3.6.1.js')}}" ></script>
+    <script src="{{URL::asset('js/jquery.mask-1.14.16.js')}}" ></script>
     <script> 
         $(document).ready(function() {
+
+            setInterval(function(){
+                    /**
+                     * REMOVER DA LISTA
+                     */  
+                    $.ajax({
+                        url: "http://localhost:8000/remover-tudo",
+                        crossDomain: true, 
+                        dataType: 'json',
+                        data: {
+                             
+                        },  
+                        type: 'POST',
+                        success: function(data) {
+                            if(data.status == "success") {
+                                location.reload(true);
+                            }
+                        },
+                        error: function (data) {
+                            console.log(data); 
+                        }
+                    });
+                     
+                }, 180000);
             
             /** 
              * MASCARAS

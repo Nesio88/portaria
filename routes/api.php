@@ -9,4 +9,5 @@ Route::get("busca-cpf/{cpf}", [DeliveryController::class, 'buscaCpf']);
 Route::get("list-checkin", [DeliveryController::class, 'listCheckin']);
 Route::post("registrar", [DeliveryController::class, 'registrarEntrada']);
 Route::post("remover", [DeliveryController::class, 'registrarSaida']);
+Route::post("remover-tudo", [DeliveryController::class, 'registrarSaidaGeral']);
 Route::resource("deliveryman", DeliveryController::class);

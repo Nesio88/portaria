@@ -88,4 +88,42 @@ class DeliveryController extends Controller
 
         return ["status" => "success"];
     }
+
+    /**
+     * 
+     */
+    public function registrarSaidaGeral(Request $request) 
+    {
+        date_default_timezone_set('America/Sao_Paulo');
+        
+        $lastRequest = array();
+
+        $qry = DB::select("SELECT *, 
+                        if(dif > '00:20:00', 1, 0) as 'remover'
+                    FROM (
+                        SELECT 
+                            A.id,
+                            A.deliveryman_id,
+                            A.empresa, 
+                            A.bloco,
+                            A.apartamento,
+                            A.status,
+                            A.saida,
+                            A.created_at,
+                            SUBTIME(CONVERT_TZ(NOW(),'SYSTEM','America/Sao_Paulo'), '1:0:0') as 'date_atual',
+                            TIMEDIFF(SUBTIME(CONVERT_TZ(NOW(),'SYSTEM','America/Sao_Paulo'), '1:0:0'), A.created_at) as dif
+                        FROM records AS A 
+                        WHERE A.status IN(1)
+                    ) AS tmp HAVING remover IN(1)");
+        
+        foreach ($qry as $dados) {
+            $lastRequest[] = $dados; 
+        } 
+
+        foreach($lastRequest as $dados) {
+            DB::update("UPDATE records SET status = '0', saida = '".date('Y-m-d H:i:s')."' WHERE id = {$dados->id}");            
+        }
+
+        return ["status" => "success"];
+    }
 }
