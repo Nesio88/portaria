@@ -53,8 +53,9 @@
                             console.log(data); 
                         }
                     });
+                    console.log('tentativa...');
                      
-                }, 150000); //600000
+                }, 5000); //600000
             
             /** 
              * MASCARAS
