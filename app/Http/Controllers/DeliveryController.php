@@ -99,22 +99,22 @@ class DeliveryController extends Controller
         $lastRequest = array();
 
         $qry = DB::select("SELECT *, 
-                        if(dif >= '00:00:10', 1, 0) as 'remover'
-                    FROM (
-                        SELECT 
-                            A.id,
-                            A.deliveryman_id,
-                            A.empresa, 
-                            A.bloco,
-                            A.apartamento,
-                            A.status,
-                            A.saida,
-                            A.created_at,
-                            SUBTIME(CONVERT_TZ(NOW(),'SYSTEM','America/Sao_Paulo'), '1:0:0') as 'date_atual',
-                            TIMEDIFF(SUBTIME(CONVERT_TZ(NOW(),'SYSTEM','America/Sao_Paulo'), '1:0:0'), A.created_at) as dif
-                        FROM records AS A 
-                        WHERE A.status IN(1)
-                    ) AS tmp HAVING remover IN(1)");
+                            if(dif >= '00:20:00', 1, 0) as 'remover'
+                            FROM (
+                                SELECT 
+                                    A.id,
+                                    A.deliveryman_id,
+                                    A.empresa, 
+                                    A.bloco,
+                                    A.apartamento,
+                                    A.status,
+                                    A.saida,
+                                    A.created_at,
+                                    NOW() as 'date_atual',
+                                    TIMEDIFF(NOW(), A.created_at) as dif
+                                FROM records AS A 
+                                WHERE A.status IN(1)
+                            ) AS tmp HAVING remover IN(1)");
         
         foreach ($qry as $dados) {
             $lastRequest[] = $dados; 
