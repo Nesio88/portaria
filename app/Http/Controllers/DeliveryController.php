@@ -99,7 +99,7 @@ class DeliveryController extends Controller
         $lastRequest = array();
 
         $qry = DB::select("SELECT *, 
-                        if(dif > '00:10:00', 1, 0) as 'remover'
+                        if(dif >= '00:20:00', 1, 0) as 'remover'
                     FROM (
                         SELECT 
                             A.id,
