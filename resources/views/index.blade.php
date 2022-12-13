@@ -218,7 +218,7 @@
                 var cpf = $("#cpf").val(); 
                 $("#dados").val('');
 
-                if(cpf.length == 14 || cpf.length == 12) { 
+                // if(cpf.length == 14 || cpf.length == 12) { 
                     $.ajax({
                         url: "http://localhost:8000/busca-cpf/" + cpf,
                         crossDomain: true, 
@@ -297,15 +297,16 @@
                             $("#dados").html(html);
                         }
                     });
-                } else {
-                    var html  = "<div class='card' style='width: 100%; margin-top: 20px; background-color:#ff000c26'>";
-                        html += "<div class='card-body' style='text-align: center; '>";
-                        html += "<h5 class='card-title' style='color:red; margin-top:10px'>Documento Inválido</h5>"; 
-                        html += "</div>";
-                        html += "</div>";
+                // } else {
+                    
+                //     var html  = "<div class='card' style='width: 100%; margin-top: 20px; background-color:#ff000c26'>";
+                //         html += "<div class='card-body' style='text-align: center; '>";
+                //         html += "<h5 class='card-title' style='color:red; margin-top:10px'>Documento Inválido</h5>"; 
+                //         html += "</div>";
+                //         html += "</div>";
 
-                    $("#dados").html(html);
-                }
+                //     $("#dados").html(html);
+                // }
             }); 
         });
     </script>    
