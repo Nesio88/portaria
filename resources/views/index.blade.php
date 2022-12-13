@@ -41,16 +41,20 @@
                         },  
                         type: 'POST',
                         success: function(data) {
-                            if(data.status == "success") {
-                                location.reload(true);
-                            }
+                            $(data.dados).each(function(index, data) {
+                                if(data != undefined) { 
+                                    var rowBanco = data.id;
+                                    console.log(rowBanco);
+                                    $("#row_"+rowBanco).hide(1000);
+                                }
+                            }); 
                         },
                         error: function (data) {
                             console.log(data); 
                         }
                     });
                      
-                }, 600000);
+                }, 150000); //600000
             
             /** 
              * MASCARAS
@@ -74,7 +78,7 @@
                     console.log(data);
                     var html = "";
                     $.each(data, function(index, value) {
-                            html += "<tr>";
+                            html += "<tr id='row_"+value.id+"' data-key='"+value.id+"'>";
                             html += "<td>"+value.name+"</td>";
                             html += "<td>"+value.entrada+"</td>";
                             html += "<td style='text-align: center;'>";

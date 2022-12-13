@@ -99,7 +99,7 @@ class DeliveryController extends Controller
         $lastRequest = array();
 
         $qry = DB::select("SELECT *, 
-                        if(dif > '00:20:00', 1, 0) as 'remover'
+                        if(dif > '00:10:00', 1, 0) as 'remover'
                     FROM (
                         SELECT 
                             A.id,
@@ -124,6 +124,6 @@ class DeliveryController extends Controller
             DB::update("UPDATE records SET status = '0', saida = '".date('Y-m-d H:i:s')."' WHERE id = {$dados->id}");            
         }
 
-        return ["status" => "success"];
+        return ["status" => "success", "dados" => $lastRequest];
     }
 }
