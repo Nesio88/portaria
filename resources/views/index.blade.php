@@ -60,11 +60,31 @@
             /** 
              * MASCARAS
              */
-            $('input[id=cpf]').mask('000.000.000-00'); 
-            $('input[id=cadCpf]').mask('000.000.000-00'); 
+            $("input[id=cpf]").keydown(function(){
+                
+                var tipo = $("#tipoDoc").val();
+                
+                if(tipo == 'cpf'){
+                    $("input[id=cpf]").mask("999.999.999-99");
+                } else {
+                    $("input[id=cpf]").mask("99.999.999-9");
+                }
 
-            $("body").on("click", function(){
-                $('input[id=cadCpf]').mask('000.000.000-00'); 
+                // ajustando foco
+                var elem = this;
+                setTimeout(function(){
+                    // mudo a posição do seletor
+                    elem.selectionStart = elem.selectionEnd = 10000;
+                }, 0);
+                
+                // reaplico o valor para mudar o foco
+                var currentValue = $(this).val();
+                $(this).val('');
+                $(this).val(currentValue);
+            });
+
+            $("#tipoDoc").blur(function(){
+                $("#cpf").val('');
             });
 
             /**
@@ -196,7 +216,7 @@
                 var cpf = $("#cpf").val(); 
                 $("#dados").val('');
 
-                if(cpf.length == 14) { 
+                if(cpf.length == 14 || cpf.length == 12) { 
                     $.ajax({
                         url: "http://localhost:8000/busca-cpf/" + cpf,
                         crossDomain: true, 
@@ -212,7 +232,7 @@
                                     html += "<p class='card-title' style='color:green'>Entregador Encontrado!</p>";
                                     
                                     html += "<p class='card-text' style='margin-top:20px; padding:0px'>";
-                                    html += "<span style='font-weight: bold;'>CPF: </span>" + data.cpf ;
+                                    html += "<span style='font-weight: bold;'>CPF|RG: </span>" + data.cpf ;
                                     html += "</p>";
                                     
                                     html += "<p class='card-text' style='margin-top:-15px; padding:0px'>";
@@ -246,7 +266,7 @@
                                 html += "<h6 class='card-subtitle mb-2 text-muted'>Preencha o formulário para cadastrar</h6>";
                                 
                                 html += "<p class='card-text' style='margin-top:20px; padding:0px'>";
-                                html += "   <span style='font-weight: bold;'>CPF: </span>";
+                                html += "   <span style='font-weight: bold;'>Documento: </span>";
                                 html += "   <input style='padding:10px' type='text' id='cadCpf' value='"+cpf+"' class='form-control'>";
                                 html += "</p>";
 
@@ -278,7 +298,7 @@
                 } else {
                     var html  = "<div class='card' style='width: 100%; margin-top: 20px; background-color:#ff000c26'>";
                         html += "<div class='card-body' style='text-align: center; '>";
-                        html += "<h5 class='card-title' style='color:red; margin-top:10px'>CPF Inválido</h5>"; 
+                        html += "<h5 class='card-title' style='color:red; margin-top:10px'>Documento Inválido</h5>"; 
                         html += "</div>";
                         html += "</div>";
 
@@ -302,10 +322,16 @@
             </div>
             <div class="row">
                 <div class="col-2"></div>
-                <div class="col-8">
+                <div class="col-3">
+                    <select class='form-control form-select' id='tipoDoc'>
+                        <option value='cpf' selected>CPF</option>
+                        <option value='rg'>RG</option>
+                    </select>
+                </div>
+                <div class="col-5">
                     <div class="input-group mb-6">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon1">CPF</span>
+                            
                         </div> 
                         <input id="cpf" type="text" class="form-control" placeholder="Apenas números" aria-label="Username" aria-describedby="basic-addon1">
                         <div class="input-group-prepend">
