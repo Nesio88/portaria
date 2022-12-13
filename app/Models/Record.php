@@ -34,7 +34,12 @@ class Record extends Model
         try {
 
             $dados = array();
-            $qry = DB::select("SELECT A.id, B.name, DATE_FORMAT(A.created_at,'%d/%m/%Y %H:%i:%s') as entrada  
+            $qry = DB::select("SELECT 
+                                    A.id, 
+                                    B.name, 
+                                    DATE_FORMAT(A.created_at,'%d/%m/%Y %H:%i:%s') as entrada,
+                                    A.apartamento,
+                                    A.bloco  
                                 FROM records AS A
                                     LEFT JOIN deliverymans B ON(A.deliveryman_id = B.id)
                                 WHERE A.status IN(1)");

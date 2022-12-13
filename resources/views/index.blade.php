@@ -104,9 +104,11 @@
                     console.log(data);
                     var html = "";
                     $.each(data, function(index, value) {
+                        console.log(value);
                             html += "<tr id='row_"+value.id+"' data-key='"+value.id+"'>";
                             html += "<td>"+value.name+"</td>";
                             html += "<td>"+value.entrada+"</td>";
+                            html += "<td>"+value.apartamento + "/" + value.bloco + "</td>";
                             html += "<td style='text-align: center;'>";
                             html += "<a href='javascript:;' class='remover' data-key='"+value.id+"'>";
                             html += "<svg style='cursor:pointer' xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-up-right-circle' viewBox='0 0 16 16'>";
@@ -327,15 +329,14 @@
                 <div class="col-2"></div>
             </div>
             <div class="row">
-                <div class="col-2"></div>
-                <div class="col-3">
+                <div class="col-5">
                     <select class='form-control form-select' id='tipoDoc'>
                         <option value='cpf' selected>CPF</option>
                         <option value='rg'>RG</option>
                         <option value='outro'>Outro</option>
                     </select>
                 </div>
-                <div class="col-5">
+                <div class="col-7">
                     <div class="input-group mb-6">
                         <div class="input-group-prepend">
                             
@@ -345,15 +346,13 @@
                             <button id="buscar" type="button" class="btn btn-danger">Buscar</button>
                         </div> 
                     </div>
-                </div>
-                <div class="col-2"></div>
+                </div> 
             </div>
             <div class="row">
-                <div class="col-2"></div>
-                <div class="col-3">
+                <div class="col-5">
                     <div id="dados"></div>                     
                 </div>
-                <div class="col-5">
+                <div class="col-7">
                     <div class='card' style='width: 100%; margin-top: 20px;'> 
                         <div class='card-body'> 
                             <p class='card-title'>Relatório</p> 
@@ -363,6 +362,7 @@
                                     <tr style="font-size: 14px">
                                         <th scope="col" style="width: 40%;">Nome</th> 
                                         <th scope="col" style="width: 40%;">Entrada</th> 
+                                        <th scope="col" style="width: 40%;">Destino</th> 
                                         <th scope="col">Remover</th>
                                     </tr>
                                 </thead>
@@ -370,8 +370,7 @@
                             </table> 
                         </div> 
                     </div> 
-                </div>
-                <div class="col-2"></div>
+                </div> 
             </div>
         </div>
     </div>    
