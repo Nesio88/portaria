@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{URL::asset('css/bootstrap-4.3.1.css')}}" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{URL::asset('css/bootstrap-4.3.1.css')}}">
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -23,8 +23,10 @@
     </style>
 
     <title>Portaria</title>
-    <script src="{{URL::asset('js/jquery-3.6.1.js')}}" ></script>
-    <script src="{{URL::asset('js/jquery.mask-1.14.16.js')}}" ></script>
+    <script src="js/jquery-3.6.1.js" ></script>
+    <script src="js/popper.min.js" ></script>
+    <script src="js/bootstrap.min.js" ></script>
+    <script src="js/jquery.mask-1.14.16.js" ></script>
     <script> 
         $(document).ready(function() {
 
@@ -41,6 +43,7 @@
                         },  
                         type: 'POST',
                         success: function(data) {
+                            console.log(data.dados);
                             $(data.dados).each(function(index, data) {
                                 if(data != undefined) { 
                                     var rowBanco = data.id;
