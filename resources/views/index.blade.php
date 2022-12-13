@@ -101,7 +101,7 @@
                 dataType: 'json',
                 type: 'GET',
                 success: function(data) {
-                    console.log(data);
+                    
                     var html = "";
                     $.each(data, function(index, value) {
                         console.log(value);
