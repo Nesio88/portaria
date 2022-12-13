@@ -66,8 +66,10 @@
                 
                 if(tipo == 'cpf'){
                     $("input[id=cpf]").mask("999.999.999-99");
-                } else {
+                } else if(tipo == 'rg') {
                     $("input[id=cpf]").mask("99.999.999-9");
+                } else {
+                    $("input[id=cpf]").unmask();
                 }
 
                 // ajustando foco
@@ -83,7 +85,7 @@
                 $(this).val(currentValue);
             });
 
-            $("#tipoDoc").blur(function(){
+            $("#tipoDoc").blur(function() {
                 $("#cpf").val('');
             });
 
@@ -326,6 +328,7 @@
                     <select class='form-control form-select' id='tipoDoc'>
                         <option value='cpf' selected>CPF</option>
                         <option value='rg'>RG</option>
+                        <option value='outro'>Outro</option>
                     </select>
                 </div>
                 <div class="col-5">
